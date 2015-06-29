@@ -7,6 +7,8 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -24,12 +26,17 @@ import com.likg.weibo.service.MicroBlogService;
 @RequestMapping("indexController")
 public class IndexController extends BaseController {
 	
+	private static Log log = LogFactory.getLog(IndexController.class);
+	
 	@Resource
 	private MicroBlogService microBlogService;
 	
 	@RequestMapping("toIndexView")
 	public ModelAndView toIndexView(){
 		Map<String, Object> model = new HashMap<String, Object>();
+		
+		log.info("index info...");
+		log.debug("index debug...");
 		
 		long totalCount = microBlogService.getTotalCount(MicroBlog.class);
 		model.put("totalBlogCount", totalCount);
