@@ -1,0 +1,91 @@
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, textarea, p, blockquote, th, td {
+	margin: 0;
+	padding: 0;
+}
+
+ol, ul {
+    list-style: outside none none;
+}
+
+a {
+	text-decoration: none;
+}
+
+.header{
+	display:block;
+	width:100%;
+	position:fixed;
+	top:0px;
+	z-index:9999;
+	/* border: 1px solid red; */
+	background: rgba(255, 255, 255, 0.94) none repeat scroll 0 0;
+    box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.3), 0 0 6px 2px rgba(0, 0, 0, 0.15);
+}
+.gn_header{
+	display:block;
+	width: 80%;
+	margin: 2px auto;
+	height: 30px;
+}
+.gn_position{
+	float: right;
+}
+
+#container{
+	width:800px;
+	margin: 5px auto;
+	padding-top: 38px;
+	
+}
+
+.clearfix::after {
+    clear: both;
+    content: ".";
+    display: block;
+    height: 0;
+    visibility: hidden;
+}
+
+
+
+.comment{
+    background-color: #f2f2f5;
+   /*  padding: 8px 0 2px; */
+}
+.comment_feed{
+	/* border: 1px solid red; */
+	overflow: hidden;
+    padding: 10px 16px 0 50px;
+}
+.comment_list{
+	overflow: hidden;
+    padding: 0 16px 0 50px;
+}
+.comment_list .list_li{
+	border-bottom-style: solid;
+    border-bottom-width: 1px;
+    margin: 0 0 -1px;
+    padding: 5px 0 7px;
+    border-color: #d9d9d9;
+}
+
+.center{
+	text-align: center;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

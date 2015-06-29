@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
+	<classpathentry kind="lib" path="webapp/WEB-INF/lib/aopalliance-1.0.jar"/>
+	<classpathentry kind="lib" path="webapp/WEB-INF/lib/jcl-over-slf4j-1.7.10.jar"/>
+	<classpathentry kind="lib" path="webapp/WEB-INF/lib/mongo-java-driver-3.0.1.jar" sourcepath="E:/maven/repo/org/mongodb/mongo-java-driver/3.0.1/mongo-java-driver-3.0.1-sources.jar"/>
+	<classpathentry kind="lib" path="webapp/WEB-INF/lib/slf4j-api-1.7.10.jar"/>
+	<classpathentry kind="lib" path="webapp/WEB-INF/lib/spring-aop-4.0.9.RELEASE.jar"/>
+	<classpathentry kind="lib" path="webapp/WEB-INF/lib/spring-beans-4.0.9.RELEASE.jar"/>
+	<classpathentry kind="lib" path="webapp/WEB-INF/lib/spring-context-4.0.9.RELEASE.jar"/>
+	<classpathentry kind="lib" path="webapp/WEB-INF/lib/spring-core-4.0.9.RELEASE.jar"/>
+	<classpathentry kind="lib" path="webapp/WEB-INF/lib/spring-data-commons-1.10.0.RELEASE.jar" sourcepath="E:/maven/repo/org/springframework/data/spring-data-commons/1.10.0.RELEASE/spring-data-commons-1.10.0.RELEASE-sources.jar"/>
+	<classpathentry kind="lib" path="webapp/WEB-INF/lib/spring-data-mongodb-1.7.0.RELEASE.jar" sourcepath="E:/maven/repo/org/springframework/data/spring-data-mongodb/1.7.0.RELEASE/spring-data-mongodb-1.7.0.RELEASE-sources.jar"/>
+	<classpathentry kind="lib" path="webapp/WEB-INF/lib/spring-expression-4.0.9.RELEASE.jar"/>
+	<classpathentry kind="lib" path="webapp/WEB-INF/lib/spring-tx-4.0.9.RELEASE.jar"/>
+	<classpathentry kind="lib" path="webapp/WEB-INF/lib/spring-web-4.0.9.RELEASE.jar"/>
+	<classpathentry kind="lib" path="webapp/WEB-INF/lib/spring-webmvc-4.0.9.RELEASE.jar"/>
+	<classpathentry kind="lib" path="lib/jsp-api.jar"/>
+	<classpathentry kind="lib" path="lib/servlet-api.jar"/>
+	<classpathentry kind="lib" path="webapp/WEB-INF/lib/jstl.jar"/>
+	<classpathentry kind="lib" path="webapp/WEB-INF/lib/standard.jar"/>
+	<classpathentry kind="lib" path="webapp/WEB-INF/lib/jackson-annotations-2.2.3.jar"/>
+	<classpathentry kind="lib" path="webapp/WEB-INF/lib/jackson-core-2.2.3.jar"/>
+	<classpathentry kind="lib" path="webapp/WEB-INF/lib/jackson-databind-2.2.3.jar"/>
+	<classpathentry kind="lib" path="webapp/WEB-INF/lib/pager-taglib.jar"/>
+	<classpathentry kind="lib" path="webapp/WEB-INF/lib/commons-lang3-3.3.2.jar"/>
+	<classpathentry kind="output" path="webapp/WEB-INF/classes"/>
+</classpath>
