@@ -12,12 +12,12 @@ function toBlogDetail(blogId){
 
 /**
  * 关注
- * @param username 用户名
+ * @param userId 用户ID
  */
-function follow(username, dom){
+function follow(userId, dom){
 	var followed = $(dom).data('followed');
 	//alert(followed)
-	$.post(sysPath + '/indexController/follow.do', {username:username}, function(json){
+	$.post(sysPath + '/indexController/follow.do', {userId:userId}, function(json){
 		if(json == -1){
 			location.href = sysPath + '/login.jsp';
 		}else{
@@ -92,30 +92,18 @@ function agree(blogId, dom){
 
 /**
  * 跳转到粉丝列表页面
- * @param username 用户名
+ * @param userId 用户ID
  */
-function toFansList(username){
-	//location.href = sysPath + '/indexController/toUserIndex.do?username='+username;
-	
-	var form = $('<form method="post"></form>');
-	$(form).prop('action', sysPath + '/indexController/toFansList.do');
-	$(form).append('<input name="username" value="'+username+'" />');
-	$(form).appendTo($('body'));
-	$(form).submit();
+function toFansList(userId){
+	location.href = sysPath + '/indexController/toFansList.do?userId='+userId;
 }
 
 /**
  * 跳转到关注列表页面
- * @param username 用户名
+ * @param userId 用户Id
  */
-function toFollowList(username){
-	//location.href = sysPath + '/indexController/toUserIndex.do?username='+username;
-	
-	var form = $('<form method="post"></form>');
-	$(form).prop('action', sysPath + '/indexController/toFollowList.do');
-	$(form).append('<input name="username" value="'+username+'" />');
-	$(form).appendTo($('body'));
-	$(form).submit();
+function toFollowList(userId){
+	location.href = sysPath + '/indexController/toFollowList.do?userId='+userId;
 }
 
 /**

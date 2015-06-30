@@ -33,8 +33,8 @@ public class MicroBlogDao {
 	}
 	
 	
-	public List<User> getUserList(Set<String> usernameList) {
-		Query query = new Query(Criteria.where("username").in(usernameList));
+	public List<User> getUserList(Set<String> userIdList) {
+		Query query = new Query(Criteria.where("_id").in(userIdList));
 		return mongoTemplate.find(query, User.class);
 	}
 
@@ -110,7 +110,7 @@ public class MicroBlogDao {
 	 * @create 2015年6月30日 下午1:24:40
 	 */
 	public long getFollowCount(String userId) {
-		Query query = new Query(Criteria.where("userId").is(userId));
+		Query query = new Query(Criteria.where("_id").is(userId));
 		User user = mongoTemplate.findOne(query, User.class);
 		return user.getFollowList().size();
 	}
@@ -235,8 +235,8 @@ public class MicroBlogDao {
 		return count;
 	}
 
-	public List<User> getFansList(String username) {
-		Query query = new Query(Criteria.where("followList").is(username));
+	public List<User> getFansList(String userId) {
+		Query query = new Query(Criteria.where("followList").is(userId));
 		query.with(new Sort(Direction.DESC, "_id"));
 		List<User> list = mongoTemplate.find(query, User.class);
 		return list;

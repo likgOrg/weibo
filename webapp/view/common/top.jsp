@@ -13,7 +13,7 @@
 			<a href="${path}/login.jsp">登录</a>
 		</c:if>
 		<c:if test="${currentUser != null}">
-			<a href="javascript:toUserIndex('${currentUser.username}');">${currentUser.username }</a> |
+			<a href="javascript:toUserIndex('${currentUser._id}');">${currentUser.username }</a> |
 			<a href="${path}/loginController/logout.do">退出</a>
 		</c:if>
 	</div>

@@ -43,12 +43,12 @@ function loadMore(page){
 	<div style="float:left;">
 		<span style="font-weight:bold;">${username}的个人空间</span>&nbsp;&nbsp;
 		<c:if test="${currentUser!=null && currentUser.username != username}">
-			<a href="javascript:;" onclick="follow('${username}',this);" data-followed="${followed}">${followed ? '取消关注' : '关注'}</a>
+			<a href="javascript:;" onclick="follow('${userId}',this);" data-followed="${followed}">${followed ? '取消关注' : '关注'}</a>
 		</c:if>
 	</div>
 	<div style="float:right;">
-		<span>关注:<a href="javascript:;" onclick="toFollowList('${username}');">${followCount }</a></span>&nbsp;&nbsp;
-		<span>粉丝:<a href="javascript:;" onclick="toFansList('${username}');">${fansCount }</a></span>&nbsp;&nbsp;
+		<span>关注:<a href="javascript:;" onclick="toFollowList('${userId}');">${followCount }</a></span>&nbsp;&nbsp;
+		<span>粉丝:<a href="javascript:;" onclick="toFansList('${userId}');">${fansCount }</a></span>&nbsp;&nbsp;
 		<span>微博:${blogCount }</span>
 	</div>
 </div>

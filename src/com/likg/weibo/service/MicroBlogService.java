@@ -161,17 +161,12 @@ public class MicroBlogService {
 		return commonDao.getObjById(blogId, MicroBlog.class);
 	}
 
-	public List<User> getFansList(String username) {
-		return microBlogDao.getFansList(username);
+	public List<User> getFansList(String userId) {
+		return microBlogDao.getFansList(userId);
 	}
 
-	public List<User> getFollowList(String username) {
-		
-		User user = microBlogDao.getUser(username);
-		
-		
-		
-		
+	public List<User> getFollowList(String userId) {
+		User user = this.getUserById(userId);
 		return microBlogDao.getUserList(user.getFollowList());
 	}
 

@@ -3,7 +3,8 @@
 <html>
 <head>
 <title>登录</title>
-<%@ include file="/view/common/head.jsp" %>
+<meta charset="utf8">
+<script type="text/javascript" src="${path}/js/jquery/jquery-1.10.2.min.js"></script>
 <style type="text/css">
 #container{
 	width:800px;

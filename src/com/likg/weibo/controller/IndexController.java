@@ -114,6 +114,7 @@ public class IndexController extends BaseController {
 		//获取用户信息
 		User user = microBlogService.getUserById(userId);
 		model.put("username", user.getUsername());
+		model.put("userId", user.get_id());
 		
 		//获取微博列表数据
 		List<MicroBlog> blogList = microBlogService.getMicroBlogList(userId);
@@ -259,24 +260,48 @@ public class IndexController extends BaseController {
 	}
 	
 	
+	/**
+	 * 跳转到用户的粉丝列表页面
+	 * @param userId
+	 * @return
+	 * @author likaige
+	 * @create 2015年6月30日 下午2:12:06
+	 */
 	@RequestMapping("toFansList")
-	public ModelAndView toFansList(String username){
+	public ModelAndView toFansList(String userId){
 		Map<String, Object> model = new HashMap<String, Object>();
 		
-		List<User> userList = microBlogService.getFansList(username);
+		//获取用户信息
+		User user = microBlogService.getUserById(userId);
+		model.put("username", user.getUsername());
+		model.put("userId", user.get_id());
+		
+		//获取粉丝列表数据
+		List<User> userList = microBlogService.getFansList(userId);
 		model.put("userList", userList);
-		model.put("username", username);
 		
 		return new ModelAndView("view/fansList", model);
 	}
 	
+	/**
+	 * 跳转到用户的关注列表页面
+	 * @param userId
+	 * @return
+	 * @author likaige
+	 * @create 2015年6月30日 下午2:12:06
+	 */
 	@RequestMapping("toFollowList")
-	public ModelAndView toFollowList(String username){
+	public ModelAndView toFollowList(String userId){
 		Map<String, Object> model = new HashMap<String, Object>();
 		
-		List<User> userList = microBlogService.getFollowList(username);
+		//获取用户信息
+		User user = microBlogService.getUserById(userId);
+		model.put("username", user.getUsername());
+		model.put("userId", user.get_id());
+		
+		//获取关注列表数据
+		List<User> userList = microBlogService.getFollowList(userId);
 		model.put("userList", userList);
-		model.put("username", username);
 		
 		return new ModelAndView("view/followList", model);
 	}
