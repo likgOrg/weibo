@@ -120,16 +120,18 @@ function toFollowList(username){
 
 /**
  * 跳转到个人中心页面
- * @param username 用户名
+ * @param userId 用户ID
  */
-function toUserIndex(username){
-	//location.href = sysPath + '/indexController/toUserIndex.do?username='+username;
+function toUserIndex(userId){
+	location.href = sysPath + '/indexController/toUserIndex.do?userId='+userId;
 	
+	/*
 	var form = $('<form method="post"></form>');
 	$(form).prop('action', sysPath + '/indexController/toUserIndex.do');
 	$(form).append('<input name="username" value="'+username+'" />');
 	$(form).appendTo($('body'));
 	$(form).submit();
+	*/
 }
 
 /**

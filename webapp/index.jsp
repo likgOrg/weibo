@@ -36,10 +36,11 @@ $(function(){
 		$('#submitBut').prop('disabled', disabled);
 	});
 	
+	//加载微博列表
 	loadMore(1);
-	
 });
 
+//加载微博列表
 function loadMore(page){
 	var url = '${path}/indexController/loadMicroBlog.do';
 	$('#tempData').load(url, {page:page}, function(){
@@ -72,7 +73,6 @@ function loadMore(page){
 </div>
 
 <div id="blogData"></div>
-
 <div id="tempData"></div>
 
 </div>

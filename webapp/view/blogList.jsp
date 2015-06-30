@@ -5,13 +5,13 @@
 <c:forEach var="blog" items="${blogPage.result}">
 	<div style="margin:5px 0;background-color:#Fff;">
 		<div>
-			<span style="float: left;">
+			<span style="float:left;">
 				<c:if test="${blog.username==null}">游客</c:if>
 				<c:if test="${blog.username!=null}">
-					<a href="javascript:toUserIndex('${blog.username}');">${blog.username}</a>
+					<a href="javascript:toUserIndex('${blog.userId}');">${blog.username}</a>
 				</c:if>
 			</span>
-			<span style="float: right;">${blog.createTime }</span>
+			<span style="float:right;">${blog.createTime }</span>
 			<div style="clear: both;"></div>
 		</div>
 		<div>${blog.content }</div>
@@ -35,10 +35,7 @@
 		</div>
 		
 		<div class="comment" id="comment${blog._id}">
-			
 		</div>
-		
-		
 		
 	</div>
 </c:forEach>

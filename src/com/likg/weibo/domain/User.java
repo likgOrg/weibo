@@ -10,10 +10,19 @@ public class User {
 	
 	private String _id;
 
+	/**
+	 * 用户名
+	 */
 	private String username;
 	
+	/**
+	 * 注册时间
+	 */
 	private String createTime;
 	
+	/**
+	 * 关注的用户列表(userId)
+	 */
 	private Set<String> followList = new HashSet<String>();
 
 	public String get_id() {

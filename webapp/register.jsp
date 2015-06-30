@@ -22,7 +22,7 @@ function regist(){
 		return;
 	}
 	
-	var url = '${path}/indexController/regist.do';
+	var url = '${path}/loginController/regist.do';
 	$.post(url, {username:username}, function(json){
 		if(json.result == 'success'){
 			location.href = '${path}/';

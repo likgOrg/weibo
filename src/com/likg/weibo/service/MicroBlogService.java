@@ -23,7 +23,18 @@ public class MicroBlogService {
 	@Resource
 	private MicroBlogDao microBlogDao;
 
-	public void saveMicroBlog(MicroBlog blog) {
+	/**
+	 * 发布微博
+	 * @param blog 微博对象
+	 * @param user 发布者信息
+	 * @author likaige
+	 * @create 2015年6月30日 上午11:26:43
+	 */
+	public void saveMicroBlog(MicroBlog blog, User user) {
+		if(user != null){
+			blog.setUserId(user.get_id());
+			blog.setUsername(user.getUsername());
+		}
 		blog.setCreateTime(DateUtil.getNowTime());
 		commonDao.saveObj(blog);
 	}
@@ -42,6 +53,13 @@ public class MicroBlogService {
 		return microBlogDao.getUser(username);
 	}
 
+	/**
+	 * 分页获取微博数据
+	 * @param page 分页信息
+	 * @return
+	 * @author likaige
+	 * @create 2015年6月30日 上午11:20:48
+	 */
 	public Page<MicroBlog> getMicroBlogPage(Page<MicroBlog> page) {
 		return microBlogDao.getMicroBlogPage(page);
 	}
@@ -54,16 +72,37 @@ public class MicroBlogService {
 		return microBlogDao.getUserList();
 	}
 
-	public List<MicroBlog> getMicroBlogList(String username) {
-		return microBlogDao.getMicroBlogList(username);
+	/**
+	 * 获取指定用户的微博列表数据
+	 * @param userId 用户id
+	 * @return
+	 * @author likaige
+	 * @create 2015年6月30日 上午11:39:43
+	 */
+	public List<MicroBlog> getMicroBlogList(String userId) {
+		return microBlogDao.getMicroBlogList(userId);
 	}
 
-	public long getMicroBlogCount(String username) {
-		return microBlogDao.getMicroBlogCount(username);
+	/**
+	 * 获取用户发布的总微博数量
+	 * @param userId
+	 * @return
+	 * @author likaige
+	 * @create 2015年6月30日 下午1:23:36
+	 */
+	public long getMicroBlogCount(String userId) {
+		return microBlogDao.getMicroBlogCount(userId);
 	}
 	
-	public long getFollowCount(String username) {
-		return microBlogDao.getFollowCount(username);
+	/**
+	 * 获取用户的关注人数
+	 * @param userId
+	 * @return
+	 * @author likaige
+	 * @create 2015年6月30日 下午1:24:29
+	 */
+	public long getFollowCount(String userId) {
+		return microBlogDao.getFollowCount(userId);
 	}
 
 	/**
@@ -102,13 +141,20 @@ public class MicroBlogService {
 		return microBlogDao.getCommentCount(blogId);
 	}
 
-	public long follow(String currUserId, String username) {
-		microBlogDao.follow(currUserId, username);
+	public long follow(String currUserId, String userId) {
+		microBlogDao.follow(currUserId, userId);
 		return 0;
 	}
 
-	public long getFansCount(String username) {
-		return microBlogDao.getFansCount(username);
+	/**
+	 * 获取用户的粉丝人数
+	 * @param userId
+	 * @return
+	 * @author likaige
+	 * @create 2015年6月30日 下午1:25:05
+	 */
+	public long getFansCount(String userId) {
+		return microBlogDao.getFansCount(userId);
 	}
 
 	public MicroBlog getMicroBlog(String blogId) {
@@ -127,6 +173,10 @@ public class MicroBlogService {
 		
 		
 		return microBlogDao.getUserList(user.getFollowList());
+	}
+
+	public User getUserById(String userId) {
+		return commonDao.getObjById(userId, User.class);
 	}
 
 }

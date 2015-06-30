@@ -1,24 +1,33 @@
 package com.likg.weibo.domain;
 
-import org.springframework.data.mongodb.core.mapping.Document;
-
-@Document(collection="blogList")
 public class Comment {
 	
-	private String _id;
-
+	/**
+	 * 评论人的id
+	 */
+	private String userId;
+	
+	/**
+	 * 评论人的用户名
+	 */
 	private String username;
 	
+	/**
+	 * 评论内容
+	 */
 	private String content;
 	
+	/**
+	 * 评论时间
+	 */
 	private String createTime;
 	
-	public String get_id() {
-		return _id;
+	public String getUserId() {
+		return userId;
 	}
 
-	public void set_id(String _id) {
-		this._id = _id;
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 
 	public String getUsername() {

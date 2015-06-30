@@ -22,7 +22,7 @@ function login(){
 		return;
 	}
 	
-	var url = '${path}/indexController/login.do';
+	var url = '${path}/loginController/login.do';
 	$.post(url, {username:username}, function(json){
 		if(json.result == 'success'){
 			location.href = '${path}/';

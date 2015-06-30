@@ -7,19 +7,44 @@ import java.util.Set;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 
+/**
+ * 微博
+ * @author likaige
+ * @create 2015年6月30日 上午10:49:54
+ */
 @Document(collection="blog")
 public class MicroBlog {
 	
 	private String _id;
 
+	/**
+	 * 发布人的id
+	 */
+	private String userId;
+	
+	/**
+	 * 发布人的用户名
+	 */
 	private String username;
 	
+	/**
+	 * 内容
+	 */
 	private String content;
 	
+	/**
+	 * 创建时间
+	 */
 	private String createTime;
 	
+	/**
+	 * 点赞用户列表(userId)
+	 */
 	private Set<String> agreeList = new HashSet<String>();
 	
+	/**
+	 * 评论列表
+	 */
 	private List<Comment> commentList = new ArrayList<>();
 
 	public String get_id() {
@@ -28,6 +53,14 @@ public class MicroBlog {
 
 	public void set_id(String _id) {
 		this._id = _id;
+	}
+	
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 
 	public String getUsername() {

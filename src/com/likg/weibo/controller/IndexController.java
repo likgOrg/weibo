@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -26,91 +25,71 @@ import com.likg.weibo.service.MicroBlogService;
 @RequestMapping("indexController")
 public class IndexController extends BaseController {
 	
+	@SuppressWarnings("unused")
 	private static Log log = LogFactory.getLog(IndexController.class);
 	
 	@Resource
 	private MicroBlogService microBlogService;
 	
+	/**
+	 * 跳转到‘首页’
+	 * @return
+	 * @author likaige
+	 * @create 2015年6月30日 上午11:12:32
+	 */
 	@RequestMapping("toIndexView")
 	public ModelAndView toIndexView(){
 		Map<String, Object> model = new HashMap<String, Object>();
 		
-		log.info("index info...");
-		log.debug("index debug...");
-		
+		//获取微博总记录数
 		long totalCount = microBlogService.getTotalCount(MicroBlog.class);
 		model.put("totalBlogCount", totalCount);
 		
+		//获取会员总记录数
 		long totalUserCount = microBlogService.getTotalCount(User.class);
 		model.put("totalUserCount", totalUserCount);
 		
 		return new ModelAndView("index", model);
 	}
 	
+	/**
+	 * 分页加载微博数据
+	 * @param page 分页信息
+	 * @return
+	 * @author likaige
+	 * @create 2015年6月30日 上午11:17:10
+	 */
 	@RequestMapping("loadMicroBlog")
 	public ModelAndView loadMicroBlog(Page<MicroBlog> page){
 		Map<String, Object> model = new HashMap<String, Object>();
 		
+		//分页获取微博数据
 		Page<MicroBlog> blogPage = microBlogService.getMicroBlogPage(page);
 		model.put("blogPage", blogPage);
 		
 		return new ModelAndView("view/blogList", model);
 	}
 	
+	/**
+	 * 发布微博
+	 * @param blog 微博对象
+	 * @return
+	 * @author likaige
+	 * @create 2015年6月30日 上午11:25:37
+	 */
 	@RequestMapping("saveMicroBlog")
 	public ModelAndView saveMicroBlog(MicroBlog blog){
 		User user = this.getCurrentUser();
-		if(user != null){
-			blog.setUsername(user.getUsername());
-		}
-		microBlogService.saveMicroBlog(blog);
-		
+		microBlogService.saveMicroBlog(blog, user);
 		return new ModelAndView(UrlBasedViewResolver.REDIRECT_URL_PREFIX + "/");
 	}
 	
-	@ResponseBody
-	@RequestMapping("regist")
-	public Map<String, Object> regist(HttpServletRequest request, String username){
-		Map<String, Object> map = new HashMap<String, Object>();
-		String result = "success";
-		
-		User user = microBlogService.getUser(username);
-		if(user == null){
-			user = microBlogService.regist(username);
-			this.setCurrentUser(user);
-		}else{
-			result = "用户名已存在！";
-		}
-		
-		map.put("result", result);
-		return map;
-	}
-	
-	@ResponseBody
-	@RequestMapping("login")
-	public Map<String, Object> login(HttpServletRequest request, String username){
-		Map<String, Object> map = new HashMap<String, Object>();
-		String result = "success";
-		
-		User user = microBlogService.getUser(username);
-		if(user != null){
-			this.setCurrentUser(user);
-		}else{
-			result = "用户名不存在！";
-		}
-		
-		map.put("result", result);
-		return map;
-	}
-	
-	@RequestMapping("logout")
-	public ModelAndView logout(HttpServletRequest request, MicroBlog blog){
-		request.getSession().invalidate();
-		
-		return new ModelAndView(UrlBasedViewResolver.REDIRECT_URL_PREFIX + "/");
-	}
-	
-	
+	/**
+	 * 找人
+	 * @return
+	 * @author likaige
+	 * @create 2015年6月30日 下午1:45:22
+	 */
 	@RequestMapping("toUserList")
 	public ModelAndView toUserList(){
 		Map<String, Object> model = new HashMap<String, Object>();
@@ -121,27 +100,41 @@ public class IndexController extends BaseController {
 		return new ModelAndView("view/userList", model);
 	}
 	
+	/**
+	 * 跳转到‘用户中心’页面
+	 * @param userId 用户ID
+	 * @return
+	 * @author likaige
+	 * @create 2015年6月30日 上午11:32:22
+	 */
 	@RequestMapping("toUserIndex")
-	public ModelAndView toUserIndex(String username){
+	public ModelAndView toUserIndex(String userId){
 		Map<String, Object> model = new HashMap<String, Object>();
 		
-		List<MicroBlog> blogList = microBlogService.getMicroBlogList(username);
-		model.put("blogList", blogList);
-		model.put("username", username);
+		//获取用户信息
+		User user = microBlogService.getUserById(userId);
+		model.put("username", user.getUsername());
 		
-		long blogCount = microBlogService.getMicroBlogCount(username);
+		//获取微博列表数据
+		List<MicroBlog> blogList = microBlogService.getMicroBlogList(userId);
+		model.put("blogList", blogList);
+		
+		//获取用户发布的总微博数量
+		long blogCount = microBlogService.getMicroBlogCount(userId);
 		model.put("blogCount", blogCount);
 		
-		long followCount = microBlogService.getFollowCount(username);
+		//获取用户的关注人数
+		long followCount = microBlogService.getFollowCount(userId);
 		model.put("followCount", followCount);
 		
-		long fansCount = microBlogService.getFansCount(username);
+		//获取用户的粉丝人数
+		long fansCount = microBlogService.getFansCount(userId);
 		model.put("fansCount", fansCount);
 		
 		//判断该用户我是否关注了
-		User user = this.getCurrentUser();
-		if(user != null){
-			if(user.getFollowList().contains(username)){
+		User currentUser = this.getCurrentUser();
+		if(currentUser != null){
+			if(currentUser.getFollowList().contains(userId)){
 				model.put("followed", true);
 			}
 		}
@@ -149,6 +142,14 @@ public class IndexController extends BaseController {
 		return new ModelAndView("view/userIndex", model);
 	}
 	
+	/**
+	 * 赞
+	 * @param blogId
+	 * @param agreed
+	 * @return
+	 * @author likaige
+	 * @create 2015年6月30日 下午1:33:57
+	 */
 	@ResponseBody
 	@RequestMapping("agree")
 	public long agree(String blogId, Boolean agreed){
@@ -162,6 +163,14 @@ public class IndexController extends BaseController {
 		return count;
 	}
 	
+	/**
+	 * 评论
+	 * @param blogId
+	 * @param content
+	 * @return
+	 * @author likaige
+	 * @create 2015年6月30日 下午1:45:48
+	 */
 	@ResponseBody
 	@RequestMapping("comment")
 	public Map<String, Object> comment(String blogId, String content){
@@ -202,15 +211,10 @@ public class IndexController extends BaseController {
 	public ModelAndView loadCommentPage(String blogId, Page<Comment> page){
 		Map<String, Object> model = new HashMap<String, Object>();
 		
-		System.out.println("11111111111111111");
-		
 		Page<Comment> commentPage = microBlogService.getCommentPage(blogId, page);
 		model.put("commentList", commentPage.getResult());
 		model.put("blogId", blogId);
 		model.put("totalCount", commentPage.getTotal());
-		//model.put("limit", commentPage.getLimit());
-		
-		//long commentCount = microBlogService.getCommentCount(blogId);
 		model.put("commentCount", commentPage.getTotal()-commentPage.getResult().size());
 		
 		return new ModelAndView("view/commentPage", model);
@@ -226,16 +230,23 @@ public class IndexController extends BaseController {
 		return new ModelAndView("view/blogDetail", model);
 	}
 	
+	/**
+	 * 关注
+	 * @param userId
+	 * @return
+	 * @author likaige
+	 * @create 2015年6月30日 下午1:34:53
+	 */
 	@ResponseBody
 	@RequestMapping("follow")
-	public long follow(String username){
+	public long follow(String userId){
 		//未登录
 		User user = this.getCurrentUser();
 		if(user == null){
 			return -1;
 		}
 		
-		long count = microBlogService.follow(user.get_id(), username);
+		long count = microBlogService.follow(user.get_id(), userId);
 		
 		this.refreshCurrentUser();
 		
