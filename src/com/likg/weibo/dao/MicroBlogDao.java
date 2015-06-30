@@ -1,6 +1,7 @@
 package com.likg.weibo.dao;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.annotation.Resource;
 
@@ -24,14 +25,6 @@ public class MicroBlogDao {
 	@Resource
 	private MongoTemplate mongoTemplate;
 
-	public void saveMicroBlog(MicroBlog blog) {
-		mongoTemplate.insert(blog);
-	}
-
-
-	public void saveUser(User user) {
-		mongoTemplate.insert(user);
-	}
 
 	public User getUser(String username) {
 		Query query = new Query(Criteria.where("username").is(username));
@@ -41,6 +34,13 @@ public class MicroBlogDao {
 		
 		return User;
 	}
+	
+	
+	public List<User> getUserList(Set<String> usernameList) {
+		Query query = new Query(Criteria.where("username").in(usernameList));
+		return mongoTemplate.find(query, User.class);
+	}
+
 
 	public Page<MicroBlog> getMicroBlogPage(Page<MicroBlog> page) {
 		
@@ -105,11 +105,7 @@ public class MicroBlogDao {
 		return user.getFollowList().size();
 	}
 
-	public long getTotalCount(Class<?> class1) {
-		long count = mongoTemplate.count(null, class1);
-		System.out.println(count);
-		return count;
-	}
+	
 
 	public void agree(String userId, String blogId) {
 		Query query = new Query(Criteria.where("_id").is(blogId));
@@ -187,14 +183,7 @@ public class MicroBlogDao {
 		mongoTemplate.upsert(query, update, User.class);
 	}
 
-	public long getFansCount(String username) {
-		Criteria c = Criteria.where("followList").is(username);
-		Query query = new Query(c);
-		
-		long count = mongoTemplate.count(query, User.class);
-		System.out.println("fansCount=="+count);
-		return count;
-	}
+	
 
 	public Page<Comment> getCommentPage(String blogId, Page<Comment> page) {
 		
@@ -217,10 +206,29 @@ public class MicroBlogDao {
 		
 		return page;
 	}
-
-	public MicroBlog getMicroBlog(String blogId) {
-		return mongoTemplate.findById(blogId, MicroBlog.class);
+	
+	public long getFansCount(String username) {
+		Criteria c = Criteria.where("followList").is(username);
+		Query query = new Query(c);
+		
+		long count = mongoTemplate.count(query, User.class);
+		System.out.println("fansCount=="+count);
+		return count;
 	}
+
+	public List<User> getFansList(String username) {
+		Query query = new Query(Criteria.where("followList").is(username));
+		Sort sort = new Sort(Direction.DESC, "_id");
+		query.with(sort);
+		
+		
+		List<User> list = mongoTemplate.find(query, User.class);
+		
+		return list;
+	}
+
+	
+	
 	
 	
 	

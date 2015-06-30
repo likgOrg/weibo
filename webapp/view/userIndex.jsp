@@ -47,8 +47,8 @@ function loadMore(page){
 		</c:if>
 	</div>
 	<div style="float:right;">
-		<span>关注:${followCount }</span>&nbsp;&nbsp;
-		<span>粉丝:${fansCount }</span>&nbsp;&nbsp;
+		<span>关注:<a href="javascript:;" onclick="toFollowList('${username}');">${followCount }</a></span>&nbsp;&nbsp;
+		<span>粉丝:<a href="javascript:;" onclick="toFansList('${username}');">${fansCount }</a></span>&nbsp;&nbsp;
 		<span>微博:${blogCount }</span>
 	</div>
 </div>
@@ -66,8 +66,6 @@ function loadMore(page){
 	</c:forEach>
 
 </div>
-
-
 
 </div>
 </body>

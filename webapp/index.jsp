@@ -37,6 +37,7 @@ $(function(){
 	});
 	
 	loadMore(1);
+	
 });
 
 function loadMore(page){

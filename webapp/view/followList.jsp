@@ -2,7 +2,7 @@
 <%@ include file="/view/common/taglibs.jsp" %>
 <html>
 <head>
-<title>找人</title>
+<title>粉丝</title>
 <%@ include file="/view/common/head.jsp" %>
 <script type="text/javascript">
 $(function(){
@@ -17,7 +17,7 @@ $(function(){
 
 <div id="container">
 
-会员列表
+${username}的关注
 
 <div>
 	<hr/>

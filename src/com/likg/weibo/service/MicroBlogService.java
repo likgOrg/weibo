@@ -6,6 +6,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import com.likg.weibo.dao.CommonDao;
 import com.likg.weibo.dao.MicroBlogDao;
 import com.likg.weibo.domain.Comment;
 import com.likg.weibo.domain.MicroBlog;
@@ -17,20 +18,21 @@ import com.likg.weibo.util.DateUtil;
 public class MicroBlogService {
 	
 	@Resource
+	private CommonDao commonDao;
+	
+	@Resource
 	private MicroBlogDao microBlogDao;
 
 	public void saveMicroBlog(MicroBlog blog) {
-		
 		blog.setCreateTime(DateUtil.getNowTime());
-		microBlogDao.saveMicroBlog(blog);
+		commonDao.saveObj(blog);
 	}
-
 
 	public User regist(String username) {
 		User user = new User();
 		user.setCreateTime(DateUtil.getNowTime());
 		user.setUsername(username);
-		microBlogDao.saveUser(user);
+		commonDao.saveObj(user);
 		
 		user = microBlogDao.getUser(username);
 		return user;
@@ -64,8 +66,15 @@ public class MicroBlogService {
 		return microBlogDao.getFollowCount(username);
 	}
 
-	public long getTotalCount(Class<?> class1) {
-		return microBlogDao.getTotalCount(class1);
+	/**
+	 * 获取文档的总记录数
+	 * @param clazz 文档类型
+	 * @return
+	 * @author likaige
+	 * @create 2015年6月29日 下午4:58:30
+	 */
+	public long getTotalCount(Class<?> clazz) {
+		return commonDao.getTotalCount(clazz);
 	}
 
 	public long agree(String userId, String blogId, Boolean agreed) {
@@ -103,9 +112,21 @@ public class MicroBlogService {
 	}
 
 	public MicroBlog getMicroBlog(String blogId) {
-		return microBlogDao.getMicroBlog(blogId);
+		return commonDao.getObjById(blogId, MicroBlog.class);
 	}
 
-	
+	public List<User> getFansList(String username) {
+		return microBlogDao.getFansList(username);
+	}
+
+	public List<User> getFollowList(String username) {
+		
+		User user = microBlogDao.getUser(username);
+		
+		
+		
+		
+		return microBlogDao.getUserList(user.getFollowList());
+	}
 
 }

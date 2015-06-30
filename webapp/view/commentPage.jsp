@@ -4,15 +4,15 @@
 
 <div class="comment_list">
 	<c:forEach var="comment" items="${commentList}">
-	<div class="list_li">
-		<div>${comment.username}：${comment.content}</div>
-		<div>${comment.createTime}</div>
-	</div>
+		<div class="list_li">
+			<div>${comment.username}：${comment.content}</div>
+			<div>${comment.createTime}</div>
+		</div>
 	</c:forEach>
 </div>
 
 
-
+<div class="center">
 <pg:pager url="" items="${totalCount}" export="currentPageNumber=pageNumber" maxPageItems="5">
 <pg:index>
     <pg:first unless="current">  
@@ -39,5 +39,5 @@
     </pg:last>
 </pg:index>
 </pg:pager>
-
+</div>
 

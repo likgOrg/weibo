@@ -118,7 +118,7 @@ public class IndexController extends BaseController {
 		List<User> userList = microBlogService.getUserList();
 		model.put("userList", userList);
 		
-		return new ModelAndView("userList", model);
+		return new ModelAndView("view/userList", model);
 	}
 	
 	@RequestMapping("toUserIndex")
@@ -245,6 +245,29 @@ public class IndexController extends BaseController {
 	private void refreshCurrentUser() {
 		User user = microBlogService.getUser(this.getCurrentUser().getUsername());
 		this.setCurrentUser(user);
+	}
+	
+	
+	@RequestMapping("toFansList")
+	public ModelAndView toFansList(String username){
+		Map<String, Object> model = new HashMap<String, Object>();
+		
+		List<User> userList = microBlogService.getFansList(username);
+		model.put("userList", userList);
+		model.put("username", username);
+		
+		return new ModelAndView("view/fansList", model);
+	}
+	
+	@RequestMapping("toFollowList")
+	public ModelAndView toFollowList(String username){
+		Map<String, Object> model = new HashMap<String, Object>();
+		
+		List<User> userList = microBlogService.getFollowList(username);
+		model.put("userList", userList);
+		model.put("username", username);
+		
+		return new ModelAndView("view/followList", model);
 	}
 	
 }

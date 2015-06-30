@@ -90,7 +90,33 @@ function agree(blogId, dom){
 	});
 }
 
+/**
+ * 跳转到粉丝列表页面
+ * @param username 用户名
+ */
+function toFansList(username){
+	//location.href = sysPath + '/indexController/toUserIndex.do?username='+username;
+	
+	var form = $('<form method="post"></form>');
+	$(form).prop('action', sysPath + '/indexController/toFansList.do');
+	$(form).append('<input name="username" value="'+username+'" />');
+	$(form).appendTo($('body'));
+	$(form).submit();
+}
 
+/**
+ * 跳转到关注列表页面
+ * @param username 用户名
+ */
+function toFollowList(username){
+	//location.href = sysPath + '/indexController/toUserIndex.do?username='+username;
+	
+	var form = $('<form method="post"></form>');
+	$(form).prop('action', sysPath + '/indexController/toFollowList.do');
+	$(form).append('<input name="username" value="'+username+'" />');
+	$(form).appendTo($('body'));
+	$(form).submit();
+}
 
 /**
  * 跳转到个人中心页面
