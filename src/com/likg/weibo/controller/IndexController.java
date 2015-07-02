@@ -228,6 +228,9 @@ public class IndexController extends BaseController {
 		MicroBlog blog = microBlogService.getMicroBlog(blogId);
 		model.put("blog", blog);
 		
+		long commentCount = microBlogService.getCommentCount(blogId);
+		model.put("commentCount", commentCount);
+		
 		return new ModelAndView("view/blogDetail", model);
 	}
 	

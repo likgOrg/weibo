@@ -34,9 +34,6 @@ ol, ul {
 	color:#eb7350;
 }
 
-
-
-
 </style>
 <script type="text/javascript">
 $(function(){
@@ -53,13 +50,11 @@ $(function(){
 
 function comment(blogId, dom){
 	var content = $(dom).parent().find('textarea').val();
-	//alert(agreed)
 	$.post(sysPath + '/indexController/comment.do', {blogId:blogId, content:content}, function(json){
-		//alert(json=='')
 		if(json == ''){
 			location.href = sysPath + '/login.jsp';
 		}else{
-			location.reload();
+			location.href = location.href;
 		}
 	});
 }
@@ -83,22 +78,18 @@ function loadComment(page,pageUrl){
 <div id="container" style="">
 
 
-
-
-
 <div style="margin: 10px 0;">
 	<div>${blog.content}</div>
 </div>
 
-<div class="">
+<div class="clearfix">
 	<textarea name="commentContent" style="width:360px; height:33px;"></textarea>
 	<input type="button" id="submitBut" value="评论" onclick="comment('${blog._id}', this);" style="vertical-align:bottom;" disabled="disabled" />
+	<span>${commentCount}</span>
 </div>
 
 <div id="dataListDiv">
 </div>
-
-
 
 </div>
 </body>
